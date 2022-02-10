@@ -1,15 +1,14 @@
-import { Client } from 'pg';
+import { Connection, createConnection } from 'typeorm';
 import config from 'config';
+import path from 'path';
 
-let db;
 
-export function connect() {
-  db = new Client(config.db);
-  return db.connect();
+let db: Connection = null;
+
+export async function getConnectionDatabase(): Promise<Connection> {
+  if (db == null)
+    db = await createConnection({...config.db,entities: [path.resolve(__dirname, '../**/entities/*.ts')]});
+  
+  return db;
 }
 
-export async function query(queryString: string, parameters?: any) {
-  if (!db) await connect();
-
-  return db.query(queryString, parameters);
-}
