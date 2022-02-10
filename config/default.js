@@ -6,8 +6,6 @@ module.exports = {
     host: '127.0.0.1',
     port: 5432,
     database: 'challenge',
-    username: 'postgres',
-    password: process.env.DB_PASSWORD,
     type: 'postgres',
   },
   debug: {
