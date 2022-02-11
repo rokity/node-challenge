@@ -4,7 +4,7 @@ import { to } from '@nc/utils/async';
 
 
 const setPagination = (query): any => {
-  if (query == null || query == undefined)
+  if (query == null || query == undefined  || query.page == undefined || query.limit == undefined)
     return { skip: 0, take: 10 };
   else {
     const limit = query.limit || 10;
@@ -15,9 +15,19 @@ const setPagination = (query): any => {
   }
 }
 
+const setSortings = (query): any => {
+  if (query == null || query == undefined || query.sort == undefined || query.sort == null)
+    return { order : {} };
+  else {    
+    return { order : JSON.parse(query.sort) };
+  } 
+};
+
 const getExpenses = async (query: undefined): Promise<any> => {
   const pagination = setPagination(query);
-  const [dbError, expenses] = await to(Expenses.find(pagination));
+  const sortings = setSortings(query);
+  const settings = {...pagination,...sortings,...filters};
+  const [dbError, expenses] = await to(Expenses.find(settings));
 
   if (dbError !== null) {
     throw InternalError(`Error fetching data from the DB: ${dbError.message}`);
@@ -31,4 +41,4 @@ const getExpenses = async (query: undefined): Promise<any> => {
 }
 
 
-module.exports = { setPagination, getExpenses };
+module.exports = { setPagination, getExpenses, setSortings };
