@@ -3,9 +3,9 @@ const setPagination = (query): any => {
     if (query == null || query == undefined  || query.page == undefined || query.limit == undefined)
       return { skip: 0, take: 10 };
     else {
-      const limit = query.limit || 10;
+      const limit = Number(query.limit) || 10;
       return {
-        skip: (query.page * limit) || 0,
+        skip: (Number(query.page) * limit) || 0,
         take: limit,
       }
     }
