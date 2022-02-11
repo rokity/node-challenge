@@ -1,4 +1,4 @@
-import  {setPagination,setSortings}  from '../services/get-expenses';
+import  {setPagination,setSortings,setFilters}  from '../services/get-expenses';
 
 describe('Set Pagination Test', () => {
   test('setPagination(null) must to have pagination settings as default', async () => {
@@ -17,8 +17,20 @@ describe('Set Sorting Test', () => {
     const results = setSortings(null);
     expect(results).toStrictEqual({ order : {} });
   });
-  test('setSorting({merchant_name:ASC,amount_in_cents:DESC}) must to have {order : {merchant_name:ASC,amount_in_cents:DESC}} ', async () => {
+  test('setSorting({merchant_name:ASC,amount_in_cents:DESC}) must to have as result {order : {merchant_name:ASC,amount_in_cents:DESC}} ', async () => {
     const results = setSortings({sort:"{\"merchant_name\":\"ASC\",\"amount_in_cents\":\"DESC\"}"});
     expect(results).toStrictEqual({order:{merchant_name:"ASC",amount_in_cents:"DESC"}});
+  });
+});
+
+
+describe('Set Filters Test', () => {
+  test('setFilters(null) must to have sorting settings as default', async () => {
+    const results = setFilters(null);
+    expect(results).toStrictEqual({ where : {} });
+  });
+  test('setSorting({amount_in_cents:6000}) must to have as result {where : {amount_in_cents:6000}} ', async () => {
+    const results = setFilters({filter:"{\"amount_in_cents\":6000}"});
+    expect(results).toStrictEqual({where:{amount_in_cents:6000}});
   });
 });

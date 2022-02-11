@@ -23,9 +23,19 @@ const setSortings = (query): any => {
   } 
 };
 
+
+const setFilters = (query): any => {
+  if (query == null || query == undefined || query.filter == undefined || query.filter == null)
+    return { where :{}};
+  else {    
+    return { where : JSON.parse(query.filter)} ;
+  } 
+}
+
 const getExpenses = async (query: undefined): Promise<any> => {
   const pagination = setPagination(query);
   const sortings = setSortings(query);
+  const filters = setFilters(query);
   const settings = {...pagination,...sortings,...filters};
   const [dbError, expenses] = await to(Expenses.find(settings));
 
@@ -41,4 +51,4 @@ const getExpenses = async (query: undefined): Promise<any> => {
 }
 
 
-module.exports = { setPagination, getExpenses, setSortings };
+module.exports = { setPagination, getExpenses, setSortings ,setFilters };
