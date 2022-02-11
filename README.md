@@ -56,3 +56,18 @@ The command above will run the following test suites sequentially:
 
 
 Happy hacking 😁!
+
+
+# Solution Docs 
+
+### Objective 
+
+Create an API to handle basic operations on the expenses table. 
+The operations needed to work with expenses table are Pagination, Sorting and Filtering.
+
+### Methodologies
+
+To implement and handle queries on Postgres I added ORM framework because it's more friendly and fast to handle operations on DB.
+I used [TypeORM](https://github.com/typeorm/typeorm) by adding on db connection module (on utils) , the configuration and connection of TypeORM.
+For handle the Expenses table I created and entity that map the structure of the table on the Expenses domain package.
+
