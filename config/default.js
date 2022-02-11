@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
   auth:{},
@@ -17,11 +18,21 @@ module.exports = {
   },
   host: 'localhost:9001',
   https: {
-    enabled: false,
+    enabled: true,
+    key: fs.readFileSync('./certs/test-key.key'),
+    cert: fs.readFileSync('./certs/test-cert.pem'),
   },
   port: process.env.PORT || 9001,
   shutdown: {
     appKill: 1000,
     serverClose: 100,
   },
+  openid:{
+    authRequired: true,
+    auth0Logout: true,
+    secret: process.env.SECRET,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+  }
 };

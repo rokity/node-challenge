@@ -10,6 +10,7 @@ import { router as expensesRoutes } from '@nc/domain-expenses';
 import { getConnectionDatabase } from '@nc/utils/db';
 import { createServer as createHTTPServer, Server } from 'http';
 import { createServer as createHTTPSServer, Server as SecureServer } from 'https';
+import { auth } from 'express-openid-connect'
 
 const logger = Logger('server');
 const app = express();
@@ -19,6 +20,8 @@ server.ready = false;
 gracefulShutdown(server);
 
 app.use(helmet());
+app.use(auth(config.openid));
+
 app.get('/readycheck', function readinessEndpoint(req, res) {
   const status = (server.ready) ? 200 : 503;
   res.status(status).send(status === 200 ? 'OK' : 'NOT OK');
@@ -36,6 +39,11 @@ app.use('/expenses', expensesRoutes);
 
 app.use(function(err,req, res,next) {
   res.status(500).json(err);
+});
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.oidc.isAuthenticated();
+  next();
 });
 
 server.listen(config.port, () => {
