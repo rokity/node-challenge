@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import Logger from '@nc/utils/logging';
 import security from './middleware/security';
 import { router as userRoutes } from '@nc/domain-user';
-import { router as expensesRoutes } from '@nc/domain-expense';
+import { router as expensesRoutes } from '@nc/domain-expenses';
 import { getConnectionDatabase } from '@nc/utils/db';
 import { createServer as createHTTPServer, Server } from 'http';
 import { createServer as createHTTPSServer, Server as SecureServer } from 'https';
