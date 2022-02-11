@@ -1,4 +1,4 @@
-import  {setPagination,setSortings,setFilters}  from '../services/get-expenses';
+import  {setPagination,setSortings,setFilters}  from '../utils/settings';
 
 describe('Set Pagination Test', () => {
   test('setPagination(null) must to have pagination settings as default', async () => {
