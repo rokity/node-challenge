@@ -4,7 +4,7 @@ import { getExpenses } from '../services/get-expenses'
 export const router = Router();
 
 router.get('/get-expenses', async (req, res, next) => {
-    const [error, response] = await to(getExpenses());
+    const [error, response] = await to(getExpenses(req.query));
   
     if (error) 
         return next(error);    

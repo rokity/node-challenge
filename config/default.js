@@ -2,6 +2,7 @@ require('dotenv').config();
 const path = require('path');
 
 module.exports = {
+  auth:{},
   db: {
     host: '127.0.0.1',
     port: 5432,
