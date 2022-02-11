@@ -71,3 +71,17 @@ To implement and handle queries on Postgres I added ORM framework because it's m
 I used [TypeORM](https://github.com/typeorm/typeorm) by adding on db connection module (on utils) , the configuration and connection of TypeORM.
 For handle the Expenses table I created and entity that map the structure of the table on the Expenses domain package.
 
+### Bonus Extra
+
+Implement the following features:
+- Add a Oauth Authentication to the API. (Auth0)
+
+### Setup Auth0 settings
+
+- Create an Auth0 application with application type Web Regular Applications.
+- Set the Allowed Callback to https://localhost:9001/callback on Auth0 Dashboard.
+- Set the Allowed Logout  to https://localhost:9001 on Auth0 Dashboard.
+- Configure .env file with the following values: 
+    - SECRET= generate a random alphanumeric string of 100 characters
+    - CLIENT_ID= take the client id from Auth0 Dashboard
+    - ISSUER_BASE_URL= take the issuer_base_url from Auth0 Dashboard
